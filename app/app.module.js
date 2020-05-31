@@ -1,5 +1,6 @@
 angular.module('MyApp', [
 	'ngRoute',
 	'galleryList',
-	'galleryItem'
+	'galleryItem',
+	'angularUtils.directives.dirPagination'
 ]);

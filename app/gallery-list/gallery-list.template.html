@@ -15,7 +15,7 @@
 	
 	
 	<ul class="gallery-items-list">
-		<li ng-repeat="image in $ctrl.images | limitTo:$ctrl.itemNumber | filter:$ctrl.favoriteFilter($ctrl.images)">
+		<li dir-paginate="image in $ctrl.images | itemsPerPage: $ctrl.itemNumber ">
 			 <div class="item-list">
 				 <a href="#!/gallery-item-{{image.id}}" >
 					 <img ng-src='{{image.download_url}}' alt="{{image.id}}">
@@ -28,7 +28,7 @@
 			 </div>
 		</li>
 	</ul>
-	<p> Images : {{$ctrl.itemNumber}} in {{$ctrl.images.length}} </p>
+	<dir-pagination-controls></dir-pagination-controls>
 </div>
 
 

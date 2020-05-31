@@ -4,7 +4,7 @@
 	
 	
 	<ul class="gallery-items-list">
-		<li dir-paginate="image in $ctrl.favoriteList | itemsPerPage: 10">
+		<li ng-repeat="image in $ctrl.favoriteList track by $index">
 			 <div class="item-list">
 				 <a href="#!/gallery-item-{{image.id}}" >
 					 <img ng-src='{{image.download_url}}' alt="{{image.id}}">
@@ -16,7 +16,6 @@
 			 </div>
 		</li>
 	</ul>
-	<dir-pagination-controls></dir-pagination-controls>
 </div>
 
 

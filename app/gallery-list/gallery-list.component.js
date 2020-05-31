@@ -1,55 +1,43 @@
 function GalleryListCtrl( $http ) {
-	let self =this;
-
+	let self = this;
+	
 	self.title = 'Gallery List'
-	
-	self.images = [];
-	
 	self.numbers = [
 		4,8,12
 	];
 	self.itemNumber = self.numbers[2];
 	
-	let arrFavorite = [];
-	
-	self.classifitacion = [
-		'All', 'Favorite'
-	];
-	
-	self.classifitacionSelect = self.classifitacion[0];
+	const arrFavorite = [];
 	
 	$http.get('https://picsum.photos/v2/list')
 		.then(function (resp) {
 			self.images = [...resp.data];
+			
 			self.images.forEach((image)=>{
 				image.favorite = false;
 			});
-			console.log('resp',resp);
 			
-			// let arrFavorite = [];
-			
-			self.addFavorite = function (obj) {
-				obj.favorite = !obj.favorite;
-				// console.log('obj info', obj);
-				
-				if(obj.favorite) {
-					arrFavorite.push(obj);
-				}
-
-				addLocalStorage(arrFavorite);
-				
-				// console.log( localStorage.favoriteGallery );
-			};
-			
-			console.log('favorite', arrFavorite);
-
-			return self.images;
+			addLocalStorage(self.images);
 		});
 	
+	self.imagesArr = JSON.parse(localStorage.favoriteGallery);
 	
-	console.log('favorite111', arrFavorite);
-	console.log('images',self.images);
-	
+	self.addFavorite = function (obj) {
+		obj.favorite = !obj.favorite;
+		// console.log('obj info', obj);
+
+		if(obj.favorite) {
+			arrFavorite.push(obj);
+			
+			let tempIndex = self.imagesArr.findIndex(function (item) {
+				return item.id === obj.id 
+			});
+			
+			self.imagesArr[tempIndex] = obj;
+			
+			addLocalStorage(self.imagesArr);
+		}
+	};
 }
 
 

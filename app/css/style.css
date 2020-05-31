@@ -112,3 +112,17 @@
 .addFavourite.active svg{
 	fill: #f45353;
 }
+
+
+/*filter box*/
+.filter-box{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0;
+	margin: 20px 0;
+}
+
+.filter-box li {
+	list-style: none;
+}

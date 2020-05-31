@@ -1,12 +1,21 @@
 <div>
 
 	<h2 class="title"> Gallery </h2>
+
+	<ul class="filter-box">
+		<li>
+			<select name="items"  ng-model="$ctrl.itemNumber"  ng-options="number for number in $ctrl.numbers">
+			</select>
+		</li>
+		<li>
+			<select name="items"  ng-model="$ctrl.classifitacionSelect"  ng-options="item for item in $ctrl.classifitacion">
+			</select>
+		</li>
+	</ul>
 	
-	<select name="items"  ng-model="$ctrl.itemNumber"  ng-options="number for number in $ctrl.numbers">
-	</select>
 	
 	<ul class="gallery-items-list">
-		<li ng-repeat="image in $ctrl.images | limitTo:$ctrl.itemNumber">
+		<li ng-repeat="image in $ctrl.images | limitTo:$ctrl.itemNumber | filter:$ctrl.favoriteFilter($ctrl.images)">
 			 <div class="item-list">
 				 <a href="#!/gallery-item-{{image.id}}" >
 					 <img ng-src='{{image.download_url}}' alt="{{image.id}}">

@@ -1,6 +1,8 @@
 function GalleryListCtrl( $http ) {
 	let self =this;
 
+	self.title = 'Gallery List'
+	
 	self.images = [];
 	
 	self.numbers = [
@@ -8,7 +10,7 @@ function GalleryListCtrl( $http ) {
 	];
 	self.itemNumber = self.numbers[2];
 	
-	self.arrFavorite = [];
+	let arrFavorite = [];
 	
 	self.classifitacion = [
 		'All', 'Favorite'
@@ -31,30 +33,21 @@ function GalleryListCtrl( $http ) {
 				// console.log('obj info', obj);
 				
 				if(obj.favorite) {
-					self.arrFavorite.push(obj);
+					arrFavorite.push(obj);
 				}
 
-				addLocalStorage(self.arrFavorite);
+				addLocalStorage(arrFavorite);
+				
+				// console.log( localStorage.favoriteGallery );
 			};
 			
-			console.log('favorite', self.arrFavorite);
+			console.log('favorite', arrFavorite);
 
-
-
-			self.favoriteFilter = function (arr) {
-				let newArr = [...arr];
-				console.log( 'select favorite aaaa', newArr  );
-				if( self.classifitacionSelect === 'Favorite' ){
-					newArr = [...self.arrFavorite]
-					console.log( 'select favorite', newArr  );
-					return newArr;
-					
-				}
-			};
-			
 			return self.images;
 		});
 	
+	
+	console.log('favorite111', arrFavorite);
 	console.log('images',self.images);
 	
 }
@@ -71,3 +64,4 @@ angular.
 		templateUrl: 'gallery-list/gallery-list.template.html',
 		controller: ['$http', GalleryListCtrl,]
 	});
+

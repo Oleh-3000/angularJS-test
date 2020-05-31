@@ -9,6 +9,9 @@ config(['$routeProvider',
 		when('/gallery-item-:imageId', {
 			template: '<gallery-item></gallery-item>'
 		}).
+		when('/favorite-list', {
+			template: '<favorite-list></favorite-list>'
+		}).
 		otherwise('/gallery-list');
 	}
 ]);

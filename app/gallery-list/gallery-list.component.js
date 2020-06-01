@@ -9,22 +9,26 @@ function GalleryListCtrl( $http ) {
 	
 	const arrFavorite = [];
 	
-	$http.get('https://picsum.photos/v2/list')
-		.then(function (resp) {
-			self.images = [...resp.data];
-			
-			self.images.forEach((image)=>{
-				image.favorite = false;
-			});
-			
-			addLocalStorage(self.images);
-		});
 	
-	self.imagesArr = JSON.parse(localStorage.favoriteGallery);
+	if(localStorage.favoriteGallery) {
+		self.imagesArr = JSON.parse(localStorage.favoriteGallery);
+	} else {
+		$http.get('https://picsum.photos/v2/list')
+			.then(function (resp) {
+				self.images = [...resp.data];
+
+				self.images.forEach((image)=>{
+					image.favorite = false;
+				});
+
+				addLocalStorage(self.images);
+			});
+
+		self.imagesArr = JSON.parse(localStorage.favoriteGallery);
+	}
 	
 	self.addFavorite = function (obj) {
 		obj.favorite = !obj.favorite;
-		// console.log('obj info', obj);
 
 		if(obj.favorite) {
 			arrFavorite.push(obj);
@@ -35,6 +39,14 @@ function GalleryListCtrl( $http ) {
 			
 			self.imagesArr[tempIndex] = obj;
 			
+			addLocalStorage(self.imagesArr);
+		} else {
+			let tempIndex = self.imagesArr.findIndex(function (item) {
+				return item.id === obj.id
+			});
+
+			self.imagesArr[tempIndex] = obj;
+
 			addLocalStorage(self.imagesArr);
 		}
 	};

@@ -10,7 +10,7 @@ function GalleryListCtrl( $http ) {
 	const arrFavorite = [];
 	
 	
-	if(localStorage.favoriteGallery) {
+	if(localStorage.favoriteGallery ) {
 		self.imagesArr = JSON.parse(localStorage.favoriteGallery);
 	} else {
 		$http.get('https://picsum.photos/v2/list')
@@ -22,9 +22,12 @@ function GalleryListCtrl( $http ) {
 				});
 
 				addLocalStorage(self.images);
+
+				self.imagesArr = JSON.parse(localStorage.favoriteGallery);
 			});
 
-		self.imagesArr = JSON.parse(localStorage.favoriteGallery);
+			
+		
 	}
 	
 	self.addFavorite = function (obj) {
